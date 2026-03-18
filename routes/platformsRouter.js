@@ -3,6 +3,6 @@ const platformsRouter = Router();
 const platformsControllers = require("../controllers/platformsControllers");
 
 platformsRouter.get("/", platformsControllers.getAllPlatforms);
-platformsRouter.get("/:platformId", platformsControllers.getPlatformById);
+platformsRouter.get("/:platformId", platformsControllers.getGamesByPlatformId);
 
 module.exports = platformsRouter;
