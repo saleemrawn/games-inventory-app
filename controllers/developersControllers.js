@@ -1,0 +1,71 @@
+const { validationResult, matchedData, body } = require("express-validator");
+const db = require("../db/queries/developersQueries");
+
+const developersValidators = [
+  body("developerName")
+    .trim()
+    .notEmpty()
+    .withMessage("Developer name is required")
+    .isAlphanumeric(undefined, { ignore: "^[ '@/&-]" })
+    .withMessage("Developer name must only contain letters, numbers, '@/&-"),
+];
+
+async function getAllDevelopers(req, res) {
+  const developers = await db.getAllDevelopers();
+  res.render("developersList", { title: "Developers", developers: developers });
+}
+
+async function getGamesByDeveloperId(req, res) {
+  const games = await db.getGamesByDeveloperId(req.params.developerId);
+  res.render("gamesList", { title: games[0].developer_name, games: games });
+}
+
+function getCreateDeveloper(req, res) {
+  res.render("createDeveloper", { title: "Add Developer" });
+}
+
+async function getUpdateDeveloperById(req, res) {
+  const [developer] = await db.getDeveloperById(req.params.developerId);
+  res.render("updateDeveloper", { title: "Update Developer", developer: developer });
+}
+
+async function createDeveloper(req, res) {
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400).render("createDeveloper", { title: "Create Developer", errors: errors.array() });
+  }
+
+  const { developerName } = matchedData(req);
+  await db.createDeveloper(developerName);
+  res.redirect("/developers");
+}
+
+async function updateDeveloper(req, res) {
+  const [developer] = await db.getDeveloperById(req.params.developerId);
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400).render("updateDeveloper", { title: "Update Developer", developer: developer, errors: errors.array() });
+  }
+
+  const { developerName } = matchedData(req);
+  await db.updateDeveloper({ developerName: developerName, developerId: req.body.developerId });
+  res.redirect("/developers");
+}
+
+async function deleteDeveloper(req, res) {
+  await db.deleteDeveloper(req.params.developerId);
+  res.redirect("/developers");
+}
+
+module.exports = {
+  getAllDevelopers,
+  getGamesByDeveloperId,
+  getCreateDeveloper,
+  getUpdateDeveloperById,
+  createDeveloper,
+  updateDeveloper,
+  deleteDeveloper,
+  developersValidators,
+};
