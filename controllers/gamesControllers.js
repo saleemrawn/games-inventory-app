@@ -28,13 +28,13 @@ async function getAllGames(req, res) {
 }
 
 async function getGameById(req, res) {
-  const game = await db.getGameById(req.params.gameId);
+  const [game] = await db.getGameById(req.params.gameId);
 
   if (!game || game.length === 0) {
     throw new CustomNotFoundError("Game not found");
   }
 
-  res.render("game", { game: game });
+  res.render("game", { title: game.game_name, game: game });
 }
 
 async function getCreateGame(req, res) {
