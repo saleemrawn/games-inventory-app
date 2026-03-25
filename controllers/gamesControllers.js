@@ -1,5 +1,7 @@
 const db = require("../db/queries/gamesQueries");
 const { body, validationResult, matchedData } = require("express-validator");
+const CustomNotFoundError = require("../errors/CustomNotFoundError");
+const CustomInternalServerError = require("../errors/CustomInternalServerError");
 
 const gameValidators = [
   body("gameName")
@@ -17,27 +19,51 @@ const gameValidators = [
 
 async function getAllGames(req, res) {
   const games = await db.getAllGames();
+
+  if (!games || games.length === 0) {
+    throw new CustomInternalServerError("Could not load games");
+  }
+
   res.render("gamesList", { title: "Games", games: games });
 }
 
 async function getGameById(req, res) {
   const game = await db.getGameById(req.params.gameId);
+
+  if (!game || game.length === 0) {
+    throw new CustomNotFoundError("Game not found");
+  }
+
   res.render("game", { game: game });
 }
 
 async function getCreateGame(req, res) {
   const categories = await db.getAllGamesCategories();
+
+  if (!categories || categories.length === 0) {
+    throw new CustomInternalServerError("Could not load categories");
+  }
+
   res.render("createGame", { title: "Add Game", categories: categories });
 }
 
 async function getUpdateGameById(req, res) {
   const [data] = await db.getUpdateGameById(req.params.gameId);
+
+  if (!data || data.length === 0) {
+    throw new CustomNotFoundError("Game not found");
+  }
+
   res.render("updateGame", { title: "Update Game", data: data });
 }
 
 async function createGame(req, res) {
   const categories = await db.getAllGamesCategories();
   const errors = validationResult(req);
+
+  if (!categories || categories.length === 0) {
+    throw new CustomInternalServerError("Could not load categories");
+  }
 
   if (!errors.isEmpty()) {
     return res.status(400).render("createGame", { title: "Add Game", categories: categories, errors: errors.array() });
@@ -64,6 +90,10 @@ async function deleteGame(req, res) {
 async function updateGame(req, res) {
   const [data] = await db.getUpdateGameById(req.params.gameId);
   const errors = validationResult(req);
+
+  if (!data || data.length === 0) {
+    throw new CustomNotFoundError("Game not found");
+  }
 
   if (!errors.isEmpty()) {
     res.status(400).render("updateGame", { title: "Update Game", data: data, errors: errors.array() });

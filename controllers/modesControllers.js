@@ -1,5 +1,7 @@
 const { validationResult, matchedData, body } = require("express-validator");
 const db = require("../db/queries/modesQueries");
+const CustomNotFoundError = require("../errors/CustomNotFoundError");
+const CustomInternalServerError = require("../errors/CustomInternalServerError");
 
 const modesValidators = [
   body("modeName")
@@ -12,13 +14,22 @@ const modesValidators = [
 
 async function getAllModes(req, res) {
   const modes = await db.getAllModes();
+
+  if (!modes || modes.length === 0) {
+    throw new CustomInternalServerError("Could not load modes");
+  }
+
   res.render("modesList", { title: "Modes", modes: modes });
 }
 
 async function getGamesByModeId(req, res) {
   const games = await db.getGamesByModeId(req.params.modeId);
-  const modeName = games[0].modes[0].name;
 
+  if (!games || games.length === 0) {
+    throw new CustomNotFoundError("No games found");
+  }
+
+  const modeName = games[0].modes[0].name;
   res.render("gamesList", { title: modeName, games: games });
 }
 
@@ -28,6 +39,11 @@ function getCreateMode(req, res) {
 
 async function getUpdateModeById(req, res) {
   const [mode] = await db.getModeById(req.params.modeId);
+
+  if (!mode || mode.length === 0) {
+    throw new CustomNotFoundError("Mode not found");
+  }
+
   res.render("updateMode", { title: "Update Mode", mode: mode });
 }
 
@@ -46,6 +62,10 @@ async function createMode(req, res) {
 async function updateMode(req, res) {
   const [mode] = await db.getModeById(req.params.modeId);
   const errors = validationResult(req);
+
+  if (!mode || mode.length === 0) {
+    throw new CustomNotFoundError("Mode not found");
+  }
 
   if (!errors.isEmpty()) {
     res.status(400).render("updateMode", { title: "Update Mode", mode: mode, errors: errors.array() });
