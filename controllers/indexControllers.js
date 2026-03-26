@@ -8,7 +8,7 @@ async function getAllGames(req, res) {
     throw new CustomInternalServerError("Could not load games");
   }
 
-  res.render("gamesList", { title: "Games Inventory App", games: games });
+  res.render("gamesList", { title: "Dashboard", games: games });
 }
 
 module.exports = { getAllGames };
