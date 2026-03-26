@@ -20,7 +20,7 @@
           <tr>
             <td><%= genre.id %></td>
             <% if(genre.number_of_games > 0) { %>
-              <td><a href="/genres/<%= genre.id %>"><%= genre.name %></a></td>
+              <td class="text-nowrap"><a href="/genres/<%= genre.id %>"><%= genre.name %></a></td>
             <% } else { %>
               <td><%= genre.name %></td>
             <% } %>
