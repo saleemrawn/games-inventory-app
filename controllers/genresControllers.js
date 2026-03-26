@@ -44,7 +44,7 @@ async function getUpdateGenreById(req, res) {
 }
 
 function getCreateGenre(req, res) {
-  res.render("createGenre", { title: "Create Genre" });
+  res.render("createGenre", { title: "Add Genre" });
 }
 
 async function createGenre(req, res) {
