@@ -1,0 +1,12 @@
+<div class="container-xxl">
+  <h1><%= title %></h1>
+  <%- include("./partials/errors.ejs") %>
+  <form action="/developers/create" method="post" class="bg-white p-4 mt-4">
+    <div class="mb-5">
+      <label for="developerName" class="form-label fs-5" aria-describedby="developerNameHelpBlock">Name</label>
+      <input type="text" id="developerName" class="form-control" name="developerName" />
+      <div id="developerNameHelpBlock" class="form-text mt-2">Name must only contain letters, numbers, '@/&-</div>
+    </div>
+    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+  </form>
+</div>
