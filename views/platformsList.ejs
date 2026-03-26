@@ -20,7 +20,7 @@
           <tr>
             <td><%= platform.id %></td>
             <% if(platform.number_of_games > 0) { %>
-              <td><a href="/platforms/<%= platform.id %>"><%= platform.name %></a></td>
+              <td class="text-nowrap"><a href="/platforms/<%= platform.id %>"><%= platform.name %></a></td>
             <% } else { %>
               <td><%= platform.name %></td>
             <% } %>
