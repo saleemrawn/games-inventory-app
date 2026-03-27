@@ -50,7 +50,7 @@ async function createDeveloper(req, res) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).render("createDeveloper", { title: "Create Developer", errors: errors.array() });
+    return res.status(400).render("createDeveloper", { title: "Add Developer", errors: errors.array() });
   }
 
   const { developerName } = matchedData(req);

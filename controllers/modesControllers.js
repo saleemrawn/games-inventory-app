@@ -51,7 +51,7 @@ async function createMode(req, res) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    return res.status(400).render("createMode", { title: "Create Mode", errors: errors.array() });
+    return res.status(400).render("createMode", { title: "Add Mode", errors: errors.array() });
   }
 
   const { modeName } = matchedData(req);
