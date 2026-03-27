@@ -1,11 +1,11 @@
-<div style="display: flex; justify-content: space-between; align-items: center;">
+<div class="mb-4" style="display: flex; justify-content: space-between; align-items: center;">
   <h1><%= title %></h1>
   <a href="/modes/create" class="btn btn-primary d-flex"><i data-lucide="plus" class="me-1"></i>Add Mode</a>
 </div>
 
 <% if(locals.modes) { %>
-  <div class="table-responsive">
-    <table class="table align-middle mt-4">
+  <div class="table-responsive rounded-4">
+    <table class="table align-middle mb-0">
       <thead>
         <tr>
           <th class="text-nowrap" style="width: 1%">ID</th>
