@@ -1,7 +1,6 @@
 const { validationResult, matchedData, body } = require("express-validator");
 const db = require("../db/queries/developersQueries");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
-const CustomInternalServerError = require("../errors/CustomInternalServerError");
 
 const developersValidators = [
   body("developerName")
@@ -14,11 +13,6 @@ const developersValidators = [
 
 async function getAllDevelopers(req, res) {
   const developers = await db.getAllDevelopers();
-
-  if (!developers || developers.length === 0) {
-    throw new CustomInternalServerError("Could not load developers");
-  }
-
   res.render("developersList", { title: "Developers", developers: developers });
 }
 

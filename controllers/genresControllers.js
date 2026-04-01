@@ -1,7 +1,6 @@
 const db = require("../db/queries/genresQueries");
 const { body, validationResult, matchedData } = require("express-validator");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
-const CustomInternalServerError = require("../errors/CustomInternalServerError");
 
 const genreValidators = [
   body("genreName")
@@ -14,11 +13,6 @@ const genreValidators = [
 
 async function getAllGenres(req, res) {
   const genres = await db.getAllGenres();
-
-  if (!genres || genres.length === 0) {
-    throw new CustomInternalServerError("Could not load genres");
-  }
-
   res.render("genresList", { title: "Genres", genres: genres });
 }
 

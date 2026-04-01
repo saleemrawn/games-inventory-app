@@ -1,7 +1,6 @@
 const { validationResult, matchedData, body } = require("express-validator");
 const db = require("../db/queries/platformsQueries");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
-const CustomInternalServerError = require("../errors/CustomInternalServerError");
 
 const platformsValidators = [
   body("platformName")
@@ -14,11 +13,6 @@ const platformsValidators = [
 
 async function getAllPlatforms(req, res) {
   const platforms = await db.getAllPlatforms();
-
-  if (!platforms || platforms.length === 0) {
-    throw new CustomInternalServerError("Could not load platforms");
-  }
-
   res.render("platformsList", { title: "Platforms", platforms: platforms });
 }
 

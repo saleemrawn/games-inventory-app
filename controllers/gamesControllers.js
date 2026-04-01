@@ -1,7 +1,6 @@
 const db = require("../db/queries/gamesQueries");
 const { body, validationResult, matchedData } = require("express-validator");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
-const CustomInternalServerError = require("../errors/CustomInternalServerError");
 
 const gameValidators = [
   body("gameName")
@@ -19,11 +18,6 @@ const gameValidators = [
 
 async function getAllGames(req, res) {
   const games = await db.getAllGames();
-
-  if (!games || games.length === 0) {
-    throw new CustomInternalServerError("Could not load games");
-  }
-
   res.render("gamesList", { title: "Games", games: games });
 }
 
@@ -39,11 +33,6 @@ async function getGameById(req, res) {
 
 async function getCreateGame(req, res) {
   const categories = await db.getAllGamesCategories();
-
-  if (!categories || categories.length === 0) {
-    throw new CustomInternalServerError("Could not load categories");
-  }
-
   res.render("createGame", { title: "Add Game", categories: categories });
 }
 
@@ -59,11 +48,8 @@ async function getUpdateGameById(req, res) {
 
 async function createGame(req, res) {
   const categories = await db.getAllGamesCategories();
-  if (!categories || categories.length === 0) {
-    throw new CustomInternalServerError("Could not load categories");
-  }
-
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).render("createGame", { title: "Add Game", categories: categories, errors: errors.array() });
   }

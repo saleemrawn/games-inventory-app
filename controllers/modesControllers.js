@@ -1,7 +1,6 @@
 const { validationResult, matchedData, body } = require("express-validator");
 const db = require("../db/queries/modesQueries");
 const CustomNotFoundError = require("../errors/CustomNotFoundError");
-const CustomInternalServerError = require("../errors/CustomInternalServerError");
 
 const modesValidators = [
   body("modeName")
@@ -14,11 +13,6 @@ const modesValidators = [
 
 async function getAllModes(req, res) {
   const modes = await db.getAllModes();
-
-  if (!modes || modes.length === 0) {
-    throw new CustomInternalServerError("Could not load modes");
-  }
-
   res.render("modesList", { title: "Modes", modes: modes });
 }
 
