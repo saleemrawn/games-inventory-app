@@ -33,6 +33,21 @@ async function getGameById(req, res) {
 
 async function getCreateGame(req, res) {
   const categories = await db.getAllGamesCategories();
+
+  if (
+    !categories ||
+    !categories.some((cat) => cat.type === "developer") ||
+    !categories.some((cat) => cat.type === "genre") ||
+    !categories.some((cat) => cat.type === "platform") ||
+    !categories.some((cat) => cat.type === "mode")
+  ) {
+    return res.render("createGame", {
+      title: "Add Game",
+      categories: categories,
+      errors: [{ msg: "Add missing developer(s), genre(s), platform(s) and mode(s) before adding a game." }],
+    });
+  }
+
   res.render("createGame", { title: "Add Game", categories: categories });
 }
 
