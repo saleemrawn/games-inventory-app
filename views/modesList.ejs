@@ -1,7 +1,7 @@
 <div class="mb-4 d-flex justify-content-between align-items-center">
   <h1><%= title %></h1>
   <% if(locals.modes && modes.length > 0) { %>
-    <a href="/modes/create" class="btn btn-primary d-flex"><i data-lucide="plus" class="me-1"></i>Add Mode</a>
+    <a href="/modes/create" class="btn btn-primary d-flex"><img src="/icons/plus.svg" alt="" class="filter-white me-1" />Add Mode</a>
   <% } %>
   </div>
 
@@ -28,11 +28,11 @@
             <% } %>
             <td class="text-center"><%= mode.number_of_games %></td>
             <td>
-              <a href="/modes/edit/<%= mode.id %>" class="btn btn-primary d-flex"><i data-lucide="pencil" width="16" class="me-2"></i>Edit</a>
+              <a href="/modes/edit/<%= mode.id %>" class="btn btn-primary d-flex"><img src="/icons/pencil.svg" alt="" class="filter-white me-2" style="width: 20px; height: auto;" />Edit</a>
             </td>
             <td>
               <form action="/modes/delete/<%= mode.id %>" method="post">
-                <button type="submit" class="btn btn-danger d-flex" onclick="return confirm(`Are you sure you want to delete mode (ID: <%= mode.id %>) <%= mode.name %>?`)"><i data-lucide="trash" width="16" class="me-2"></i>Delete</button>
+                <button type="submit" class="btn btn-danger d-flex" onclick="return confirm(`Are you sure you want to delete mode (ID: <%= mode.id %>) <%= mode.name %>?`)"><img src="/icons/trash.svg" alt="" class="filter-white me-2" style="width: 20px; height: auto;" />Delete</button>
               </form>
             </td>
           </tr>
@@ -41,5 +41,5 @@
     </table>
   </div>
 <% } else { %>
-  <a href="/modes/create" class="btn btn-primary btn-lg d-flex align-items-center" style="width: fit-content;"><i data-lucide="plus" class="me-1"></i>Add Mode</a>
+  <a href="/modes/create" class="btn btn-primary btn-lg d-flex align-items-center" style="width: fit-content;"><img src="/icons/plus.svg" alt="" class="filter-white me-1" />Add Mode</a>
 <% } %>  

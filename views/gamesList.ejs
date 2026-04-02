@@ -5,11 +5,11 @@
     <div class="d-flex gap-2">
       <% if(locals.games && games.length > 0) { %>
         <% if(locals.filters) { %>
-          <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-          <i data-lucide="sliders-horizontal" class="me-2"></i>Filter
+          <button class="btn btn-primary d-flex" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+          <img src="/icons/sliders-horizontal.svg" alt="" class="filter-white me-2" />Filter
           </button>
         <% } %>
-        <a href="/games/createGame" class="btn btn-primary d-flex"><i data-lucide="plus" class="me-1"></i>Add Game</a>
+        <a href="/games/createGame" class="btn btn-primary d-flex"><img src="/icons/plus.svg" alt="" class="filter-white me-1" />Add Game</a>
       <% } %>
     </div>
   </div>
@@ -67,11 +67,11 @@
               <% }; %>
             </td>
             <td>
-              <a href="/games/edit/<%= game.game_id %>" class="btn btn-primary d-flex"><i data-lucide="pencil" width="16" class="me-2"></i>Edit</a>
+              <a href="/games/edit/<%= game.game_id %>" class="btn btn-primary d-flex"><img src="/icons/pencil.svg" alt="" class="filter-white me-2" style="width: 20px; height: auto;" />Edit</a>
             </td>
             <td>
               <form action="/games/delete/<%= game.game_id %>" method="post">
-                <button type="submit" class="btn btn-danger d-flex" onclick="return confirm(`Are you sure you want to delete (ID: <%= game.game_id %>) <%= game.game_name %>?`)"><i data-lucide="trash" width="16" class="me-2"></i>Delete</button>
+                <button type="submit" class="btn btn-danger d-flex" onclick="return confirm(`Are you sure you want to delete (ID: <%= game.game_id %>) <%= game.game_name %>?`)"><img src="/icons/trash.svg" alt="" class="filter-white me-2" style="width: 20px; height: auto;" />Delete</button>
               </form>
             </td>
             </tr>
@@ -80,5 +80,5 @@
     </table>
   </div>
 <% } else { %>
-  <a href="/games/createGame" class="btn btn-primary btn-lg d-flex align-items-center" style="width: fit-content;"><i data-lucide="plus" class="me-1"></i>Add Game</a>
+  <a href="/games/createGame" class="btn btn-primary btn-lg d-flex align-items-center" style="width: fit-content;"><img src="/icons/plus.svg" alt="" class="filter-white me-1" />Add Game</a>
 <% } %>
