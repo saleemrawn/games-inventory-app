@@ -79,12 +79,12 @@ async function createGame(req, res) {
     modeId: [].concat(modes),
   });
 
-  res.redirect("/games");
+  res.redirect("/");
 }
 
 async function deleteGame(req, res) {
   await db.deleteGame(req.params.gameId);
-  res.redirect("/games");
+  res.redirect("/");
 }
 
 async function updateGame(req, res) {
@@ -109,7 +109,7 @@ async function updateGame(req, res) {
     modeIds: [].concat(modes),
   });
 
-  res.redirect("/games");
+  res.redirect("/");
 }
 
 module.exports = { getAllGames, getGameById, getCreateGame, getUpdateGameById, createGame, deleteGame, updateGame, gameValidators };
