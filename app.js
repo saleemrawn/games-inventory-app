@@ -19,6 +19,7 @@ app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   res.locals.urlPath = req.path;
+  res.locals.appName = "Games Inventory App";
   next();
 });
 app.use("/", indexRouter);
