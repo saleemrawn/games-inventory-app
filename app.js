@@ -17,6 +17,10 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(ejsLayouts);
 app.use(express.urlencoded({ extended: true }));
+app.use((req, res, next) => {
+  res.locals.urlPath = req.path;
+  next();
+});
 app.use("/", indexRouter);
 app.use("/games", gamesRouter);
 app.use("/platforms", platformsRouter);

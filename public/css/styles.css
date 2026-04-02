@@ -24,3 +24,16 @@ body {
 .h-64 {
   width: 4rem;
 }
+
+.nav-link,
+.nav-link img {
+  color: #000000;
+  opacity: 0.5;
+}
+
+.nav-link:hover,
+.nav-link.active,
+.nav-link:hover img,
+.nav-link.active img {
+  opacity: 1;
+}

@@ -17,32 +17,32 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item me-3" aria-current="page">
-          <a href="/" class="nav-link d-flex active">
+          <a href="/" class="nav-link d-flex <%= locals.urlPath === "/" || locals.urlPath.startsWith("/games") ? "active" : "" %>">
             <img src="/icons/layout-dashboard.svg" alt="" class="me-2" />
             Dashboard
           </a>
         </li>
         <li class="nav-item me-3" aria-current="page">
-          <a href="/developers" class="nav-link d-flex">
+          <a href="/developers" class="nav-link d-flex <%= locals.urlPath.startsWith("/developers") ? "active" : "" %>">
             <img src="/icons/code.svg" alt="" class="me-2" />
             Developers
           </a>
         </li>
         <li class="nav-item me-3" aria-current="page">
-          <a href="/genres" class="nav-link d-flex">
+          <a href="/genres" class="nav-link d-flex <%= locals.urlPath.startsWith("/genres") ? "active" : "" %>">
             <img src="/icons/drama.svg" alt="" class="me-2" />
             Genres
           </a>
         </li>
         <li class="nav-item me-3" aria-current="page">
-          <a href="/platforms" class="nav-link d-flex">
+          <a href="/platforms" class="nav-link d-flex <%= locals.urlPath.startsWith("/platforms") ? "active" : "" %>">
             <img src="/icons/gamepad-2.svg" alt="" class="me-2" />
             Platforms
           </a>
         </li>
 
         <li class="nav-item" aria-current="page">
-          <a href="/modes" class="nav-link d-flex">
+          <a href="/modes" class="nav-link d-flex <%= locals.urlPath.startsWith("/modes") ? "active" : "" %>">
             <img src="/icons/users.svg" alt="" class="me-2" />
             Modes
           </a>
