@@ -49,6 +49,7 @@ async function getGamesByPlatformId(id) {
       ga.id AS game_id,
       ga.name AS game_name,
       ga.release_year,
+      de.id AS developer_id,
       de.name AS developer_name,
       gen.genres,
       mo.modes,
