@@ -31,9 +31,18 @@ app.use("/developers", developersRouter);
 app.use("/{*splat}", errorRouter);
 app.use((err, req, res, next) => {
   console.error(err);
-  res
-    .status(err.statusCode || 500)
-    .render("customError", { title: `${err.statusCode} | ${err.message}`, error: { statusCode: err.statusCode, message: err.message } });
+
+  if (err.code === "23505") {
+    return res.status(409).render("customError", {
+      title: `409 | ${err.detail}`,
+      error: { statusCode: 409, message: err.detail },
+    });
+  }
+
+  res.status(err.statusCode || 500).render("customError", {
+    title: `${err.statusCode || 500} | ${err.message}`,
+    error: { statusCode: err.statusCode || 500, message: err.message },
+  });
 });
 
 const PORT = 8080;
